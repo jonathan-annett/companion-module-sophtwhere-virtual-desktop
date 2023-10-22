@@ -10,7 +10,7 @@ const UpdateActions = require('./actions');
 const UpdatePresets = require('./presets');
 const UpdateFeedbacks = require('./feedbacks');
 const UpdateVariableDefinitions = require('./variables');
-const virtualDesktop = require ('./virtualDesktop');
+const virtualDesktop = require ("virtual-desktop-node");
 
 const os = require('os');
 

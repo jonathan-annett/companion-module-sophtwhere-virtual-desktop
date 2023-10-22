@@ -134,6 +134,6 @@ function incrementBuildNo() {
 
 
 
-copyBrowserFiles();
+//copyBrowserFiles();
 
 incrementBuildNo();
