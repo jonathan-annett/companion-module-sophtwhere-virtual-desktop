@@ -1,0 +1,17 @@
+/*!
+ * companion-module-sophtwhere-timer/actions/index.js
+ * Copyright(c) 2023 Jonathan Annett
+ * MIT Licensed
+ */
+
+/*!
+ * companion-module-sophtwhere-timer/main.js
+ * Copyright(c) 2023 Jonathan Annett
+ * MIT Licensed
+ */
+
+/*!
+ * companion-module-sophtwhere-timer/presets/index.js
+ * Copyright(c) 2023 Jonathan Annett
+ * MIT Licensed
+ */

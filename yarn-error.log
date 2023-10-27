@@ -1,0 +1,53 @@
+Arguments: 
+  C:\Program Files (x86)\nodejs\node.exe C:\Users\USER\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Program Files\WindowsApps\Microsoft.PowerShell_7.3.8.0_x64__8wekyb3d8bbwe;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Program Files\PuTTY\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\AOMEI\AOMEI Backupper\7.1.2;C:\Program Files (x86)\nodejs\;C:\Program Files\GitHub CLI\;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Ferro Software\FtpUse;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;C:\Users\USER\AppData\Local\GitHubDesktop\bin;C:\Users\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Roaming\npm;C:\Users\USER\.dotnet\tools;
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.15.0
+
+Platform: 
+  win32 ia32
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\USER\Documents\GitHub\companion-module-sophtwhere-virtual-desktop\node_modules\virtual-desktop\VirtualDesktop.exe'
+
+npm manifest: 
+  {
+      "name": "sophtwhere-virtual-desktop",
+      "version": "0.1.280",
+      "main": "main.js",
+      "scripts": {
+          "format": "prettier -w .",
+          "build": "npm install && node ./scripts/before-build.js && yarn companion-module-build && node ./scripts/copy-dist-bundle.js",
+          "devbuild": "npm install && node ./scripts/before-build.js && yarn companion-module-build --dev && node ./scripts/copy-dist-bundle.js"
+      },
+      "license": "MIT",
+      "repository": {
+          "type": "git",
+          "url": "git+https://github.com/jonathan-annett/companion-module-sophtwhere-virtual-desktop.git"
+      },
+      "dependencies": {
+          "@companion-module/base": "~1.4.0"    },
+      "devDependencies": {
+          "@companion-module/tools": "^1.2.0",
+          "@rwh/keystrokes": "^1.2.3",
+          "current-device": "^0.10.2",
+          "jszip": "^3.10.1",
+          "clean-css": "^5.3.2",
+          "html-minifier": "^4.0.0",
+          "uglify-js": "^3.17.4",
+          "webpack": "^5.88.2"
+      },
+      "prettier": "@companion-module/tools/.prettierrc.json"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

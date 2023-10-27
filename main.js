@@ -27,8 +27,42 @@ class ModuleInstance extends InstanceBase {
 		if ( virtualDesktop.CSharpOk()) {
 			virtualDesktop ().then(function(api){
 				self.api = api;
+
+				
+			self.updateVariableDefinitions(); // export variable definitions
+			['resetVariable', 'resetVariables', 'getVariable', 'setVariable', 'vars'].forEach(function (method) {
+				const fn = UpdateVariableDefinitions[method];
+				api[method] = fn;
+			});
+
+			self.updateActions().then (function(){
+				self.updatePresets();// export presets
+			}); // export actions
+			
+			self.updateFeedbacks(); // export feedbacks
+
+			api.setVariableValues = function (vars) {
+				const vars2 = {};
+				Object.keys(vars).forEach(function (k) {
+					const val = vars[k];
+					if (val !== undefined) {
+						vars2[k] = val;
+						if (k === "remain" || k === "elapsed") {
+							const extra = splitHMS(val);
+							Object.keys(extra).forEach(function (kk) {
+								vars2[`${k}_${kk}`] = extra[kk];
+							});
+						}
+					}
+				});
+				self.setVariableValues(vars2);
+				self.checkFeedbacks();
+			};
+
+
 				self.updateStatus(InstanceStatus.Ok);
-			}).catch(function(){
+			}).catch(function(err){
+				console.log(err);
 				self.updateStatus(InstanceStatus.BadConfig);
 			});
 		} else {
@@ -43,9 +77,7 @@ class ModuleInstance extends InstanceBase {
 
 	// When module gets deleted
 	async destroy() {
-
-		this.log('debug', 'destroy');
-		 
+		this.log('debug', 'destroy');		 
 	}
 
 	async configUpdated(config) {
@@ -66,7 +98,7 @@ class ModuleInstance extends InstanceBase {
 	}
 
 	updateActions() {
-		UpdateActions(this);
+		return UpdateActions(this);
 	}
 
 	updatePresets() {

@@ -6,69 +6,65 @@
 
 module.exports = function (self) {
 
-	const api = self.api;
-	   
-	const acts = {
-	};
-
-	[
-		'switch',
-
-	].forEach(function(x){ acts[x]=require(`./${x}`)(self);});
-
-	const actionDefs = {
-
-		restart      : acts.start.restart,
-		startNew     : acts.start.startNew,
-
-		setDefault   : acts.default.setDefault,
-
-		pause        : acts.pause.pause,
-		undopause    : acts.pause.undopause,
-
-		bar          : acts.bar.bar,
-		time         : acts.time.time,
-		presenter    : acts.presenter.presenter,
-
-
-		messages     : acts.messages.messages,
-
-		nudge         : acts.nudge.nudge,		
-		catchup       :  acts.catchup.catchup,
+	return new Promise(function(resolve){
+		const api = self.api;
 		
-		adjust        : acts.adjust.adjust,
+		const acts = {
+		};
 
-		customMessage : acts.customMessage.customMessage,
+		[
+			'goto',
+			'next',
+			'previous'
 
-		setTimerColor : acts.setTimerColor.setTimerColor,
-		BeginColorTheme : acts.setTimerColor.BeginColorTheme,
-		EndColorTheme : acts.setTimerColor.EndColorTheme,
+		].forEach(function(x){ acts[x]=require(`./${x}`)(self);});
 
+		const actionDefs = {
 
+			goto       : acts.goto.goto,
+			previous   : acts.previous.previous,
+			next       : acts.next.next,
+		
+		};
 		
 		
-	};
-    
-	
-	api.updateTimerColors = acts.setTimerColor.updateTimerColors;
-	api.actions = acts;
-	api.actionDefs = actionDefs;
+		api.actions = acts;
+		api.actionDefs = actionDefs;
 
-	api.presets = {};
-	Object.keys(api.actions).forEach(function(libName){
-		const lib = api.actions[libName];
-		if (lib && lib.presets) {
-			Object.keys(lib.presets).forEach(function(presetKey){
-				if (!!lib.presets[presetKey]) {
-					api.presets[presetKey] = lib.presets[presetKey];
-				} else {
-					console.log('warning:',presetKey,'is already defined, in',libName);
+		api.presets = {};
+		const ready= [];
+
+		Object.keys(api.actions).forEach(function(libName){
+			const lib = api.actions[libName];
+			if (lib.ready) ready.push(lib.ready);
+		});
+
+		Promise.all(ready).then(function(xxx){
+
+			Object.keys(api.actions).forEach(function(libName){
+				const lib = api.actions[libName];					 
+				if (lib && lib.presets) {
+					Object.keys(lib.presets).forEach(function(presetKey){
+						if (!!lib.presets[presetKey]) {
+							const ps =  lib.presets[presetKey];
+							api.presets[presetKey] = ps;
+							
+						} else {
+							console.log('warning:',presetKey,'is already defined, in',libName);
+						}
+					});			
 				}
-			});			
-		}
+			});
+
+
+
+			console.log({presets:api.presets});
+			self.setActionDefinitions(actionDefs);
+
+			resolve();
+		});
+
+	
 	});
-
-	self.setActionDefinitions(actionDefs);
-
 	 
 }

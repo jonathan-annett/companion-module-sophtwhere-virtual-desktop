@@ -18,6 +18,8 @@ module.exports = async function (self) {
 		0,variable_defs.length,
 
 		{ variableId: 'count', name: 'count of desktops' , default : 0 },
+		{ variableId: 'visible', name: 'name of current visible desktop' , default : '' },
+		{ variableId: 'visibleIndex', name: 'index of current visible desktop' , default : 0 }
 		
 		
 	);
