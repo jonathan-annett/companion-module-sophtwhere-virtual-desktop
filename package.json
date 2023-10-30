@@ -1,6 +1,6 @@
 {
     "name": "sophtwhere-virtual-desktop",
-    "version": "0.1.350",
+    "version": "0.1.351",
     "main": "main.js",
     "scripts": {
         "format": "prettier -w .",
