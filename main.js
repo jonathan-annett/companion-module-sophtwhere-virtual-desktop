@@ -26,7 +26,7 @@ class ModuleInstance extends InstanceBase {
 
 		console.log({init:{isFirstInit,config}});
 
-		virtualDesktop.startManager ( isFirstInit ? undefined: config.vd_api_version ).then(function(api){
+		virtualDesktop.startManager ( /*isFirstInit ? undefined: config.vd_api_version*/ ).then(function(api){
 
 			config.vd_api_version = virtualDesktop.selectedClient;
 
@@ -92,6 +92,8 @@ class ModuleInstance extends InstanceBase {
 		const self = this;
 		this.config = config;
 
+		return;
+
 		if (config.vd_api_version ) {
 			const ix = virtualDesktop.clientNames.indexOf( config.vd_api_version ) ;
 			if (ix>=0) {
@@ -136,6 +138,8 @@ class ModuleInstance extends InstanceBase {
 	// Return config fields for web config
 	getConfigFields() {
 		const config = this.config;
+
+		return [];
 		
 		let defaultVer = config ? config.vd_api_version : undefined;
 		const versions = virtualDesktop.clientNames.map(function(verString,ix){
