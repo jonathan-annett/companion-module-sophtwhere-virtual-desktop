@@ -26,9 +26,9 @@ class ModuleInstance extends InstanceBase {
 
 		console.log({init:{isFirstInit,config}});
 
-		virtualDesktop.startManager ( config.vd_api_version ).then(function(api){
+		virtualDesktop.startManager ( isFirstInit ? undefined: config.vd_api_version ).then(function(api){
 
-			config.vd_api_version = path.basename(virtualDesktop.selectedClientPath).replace(/\.exe$/i,'');
+			config.vd_api_version = virtualDesktop.selectedClient;
 
 			self.api = api;
 			
@@ -129,11 +129,14 @@ class ModuleInstance extends InstanceBase {
 	getConfigFields() {
 		const config = this.config;
 		
-		let defaultVer;
+		let defaultVer = config ? config.vd_api_version : undefined;
 		const versions = virtualDesktop.clientNames.map(function(verString,ix){
 			const verPath   = virtualDesktop.clientExePaths[ix];
-			if (!defaultVer || (virtualDesktop.selectedClientPath === verPath)) {
+			if (!defaultVer || (virtualDesktop.selectedClient === verString)) {
 				defaultVer = verString;
+				if (config) {
+					config.vd_api_version=defaultVer;
+				}
 			}
 			return { id: verString, label : verString};
 		});
