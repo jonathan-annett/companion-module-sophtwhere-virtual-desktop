@@ -24,11 +24,10 @@ class ModuleInstance extends InstanceBase {
 
 		console.log({init:{isFirstInit,config}});
 
-		if ( virtualDesktop.CSharpOk()) {
-			virtualDesktop ().then(function(api){
-				self.api = api;
+		virtualDesktop.startManager ().then(function(api){
 
-				
+			self.api = api;
+			
 			self.updateVariableDefinitions(); // export variable definitions
 			['resetVariable', 'resetVariables', 'getVariable', 'setVariable', 'vars'].forEach(function (method) {
 				const fn = UpdateVariableDefinitions[method];
@@ -60,15 +59,12 @@ class ModuleInstance extends InstanceBase {
 			};
 
 
-				self.updateStatus(InstanceStatus.Ok);
-			}).catch(function(err){
-				console.log(err);
-				self.updateStatus(InstanceStatus.BadConfig);
-			});
-		} else {
+			self.updateStatus(InstanceStatus.Ok);
+		}).catch(function(err){
+			console.log(err);
 			self.updateStatus(InstanceStatus.BadConfig);
-		}
-
+		});
+		
 
 
 	}
