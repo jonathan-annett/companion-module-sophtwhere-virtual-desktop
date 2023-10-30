@@ -56,9 +56,6 @@ module.exports = function (self) {
 				}
 			});
 
-
-
-			console.log({presets:api.presets});
 			self.setActionDefinitions(actionDefs);
 
 			resolve();

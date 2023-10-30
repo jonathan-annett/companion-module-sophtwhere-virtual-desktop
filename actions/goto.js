@@ -81,7 +81,6 @@ module.exports = function (self) {
 			delete actionDef.presets.goto;
 	
 			for (let i = 0;i < count; i ++ ) {
-				console.log("updating preset: desktop",i);
 				actionDef.presets[`goto${i}`] =  {
 					category: 'Desktop',
 					"type": "button",

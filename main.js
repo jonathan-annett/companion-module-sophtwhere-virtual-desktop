@@ -33,10 +33,12 @@ class ModuleInstance extends InstanceBase {
 			self.api = api;
 			
 			self.updateVariableDefinitions(); // export variable definitions
-			['resetVariable', 'resetVariables', 'getVariable', 'setVariable', 'vars'].forEach(function (method) {
-				const fn = UpdateVariableDefinitions[method];
-				api[method] = fn;
-			});
+
+			api.on('variable',UpdateVariableDefinitions.setVariable);
+
+			api.current().then(function(info){
+				console.log({info});
+			}).catch(console.log.bind(console));
 
 			self.updateActions().then (function(){
 				self.updatePresets();// export presets
@@ -44,26 +46,9 @@ class ModuleInstance extends InstanceBase {
 			
 			self.updateFeedbacks(); // export feedbacks
 
-			api.setVariableValues = function (vars) {
-				const vars2 = {};
-				Object.keys(vars).forEach(function (k) {
-					const val = vars[k];
-					if (val !== undefined) {
-						vars2[k] = val;
-						if (k === "remain" || k === "elapsed") {
-							const extra = splitHMS(val);
-							Object.keys(extra).forEach(function (kk) {
-								vars2[`${k}_${kk}`] = extra[kk];
-							});
-						}
-					}
-				});
-				self.setVariableValues(vars2);
-				self.checkFeedbacks();
-			};
-
-
 			self.updateStatus(InstanceStatus.Ok);
+
+			
 		}).catch(function(err){
 			console.log(err);
 			self.updateStatus(InstanceStatus.BadConfig);
@@ -91,10 +76,10 @@ class ModuleInstance extends InstanceBase {
 				fs.stat(candidatePath,function(err,stat){
 					if (stat) {
 						virtualDesktop.testVersionCandidate(candidatePath)
-						   .then(function(){
+						   .then(function () {
 						     	console.log("tested version:",config.vd_api_version,"ok");
 						   })
-						   .catch(function(err){
+						   .catch(function (err) {
 								console.log("error testing version:",err);
 
 								virtualDesktop.detectClient().then(function(p){
