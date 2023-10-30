@@ -13,6 +13,8 @@ const UpdateVariableDefinitions = require('./variables');
 const virtualDesktop = require ("virtual-desktop-node");
 
 const os = require('os');
+const path = require('path');
+const fs = require('fs');
 
 class ModuleInstance extends InstanceBase {
 	constructor(internal) {
@@ -24,7 +26,9 @@ class ModuleInstance extends InstanceBase {
 
 		console.log({init:{isFirstInit,config}});
 
-		virtualDesktop.startManager ().then(function(api){
+		virtualDesktop.startManager ( config.vd_api_version ).then(function(api){
+
+			config.vd_api_version = path.basename(virtualDesktop.selectedClientPath).replace(/\.exe$/i,'');
 
 			self.api = api;
 			
@@ -77,7 +81,45 @@ class ModuleInstance extends InstanceBase {
 	}
 
 	async configUpdated(config) {
+		const self = this;
 		this.config = config;
+
+		if (config.vd_api_version ) {
+			const ix = virtualDesktop.clientNames.indexOf( config.vd_api_version ) ;
+			if (ix>=0) {
+				const candidatePath = virtualDesktop.clientExePaths[ix];
+				fs.stat(candidatePath,function(err,stat){
+					if (stat) {
+						virtualDesktop.testVersionCandidate(candidatePath)
+						   .then(function(){
+						     	console.log("tested version:",config.vd_api_version,"ok");
+						   })
+						   .catch(function(err){
+								console.log("error testing version:",err);
+
+								virtualDesktop.detectClient().then(function(p){
+
+									console.log("detected:",p);
+
+									const ix = virtualDesktop.clientExePaths.indexOf( p ) ;
+
+									if (ix>=0) {
+										console.log("located index:",ix);
+
+										config.vd_api_version =  virtualDesktop.clientNames[ix];
+										self.config=config;
+										self.saveConfig();
+									}
+
+								});
+						   });
+					}
+				});
+			}
+		}
+
+		  
+
 	}
 
 
@@ -86,9 +128,24 @@ class ModuleInstance extends InstanceBase {
 	// Return config fields for web config
 	getConfigFields() {
 		const config = this.config;
+		
+		let defaultVer;
+		const versions = virtualDesktop.clientNames.map(function(verString,ix){
+			const verPath   = virtualDesktop.clientExePaths[ix];
+			if (!defaultVer || (virtualDesktop.selectedClientPath === verPath)) {
+				defaultVer = verString;
+			}
+			return { id: verString, label : verString};
+		});
 
 		return [
-
+			{
+				type: 'dropdown',
+				label: 'API Version',
+				id: 'vd_api_version',
+				default: defaultVer,
+				choices: versions
+			  }
 		];
 
 	}

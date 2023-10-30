@@ -2166,8 +2166,8 @@ util-deprecate@~1.0.1:
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
 "virtual-desktop-node@git+https://github.com/jonathan-annett/virtual-desktop-node.git":
-  version "0.0.2"
-  resolved "git+https://github.com/jonathan-annett/virtual-desktop-node.git#d2a9264c8548851b040a78f2876e324955d2cd56"
+  version "1.0.6"
+  resolved "git+https://github.com/jonathan-annett/virtual-desktop-node.git#d90f30198001821d29eff7eb49f0fa0d99070e41"
   dependencies:
     virtual-desktop "git+https://github.com/jonathan-annett/VirtualDesktop.git"
 
