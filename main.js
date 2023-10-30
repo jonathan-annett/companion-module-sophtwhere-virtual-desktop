@@ -33,6 +33,10 @@ class ModuleInstance extends InstanceBase {
 			self.api = api;
 			
 			self.updateVariableDefinitions(); // export variable definitions
+			['resetVariable', 'resetVariables', 'getVariable', 'setVariable', 'vars'].forEach(function (method) {
+				const fn = UpdateVariableDefinitions[method];
+				api[method] = fn;
+			});
 
 			api.on('variable',UpdateVariableDefinitions.setVariable);
 
