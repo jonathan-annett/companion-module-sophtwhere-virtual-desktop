@@ -1,10 +1,10 @@
 {
     "name": "sophtwhere-virtual-desktop",
-    "version": "0.1.359",
+    "version": "0.1.362",
     "main": "main.js",
     "scripts": {
         "format": "prettier -w .",
-        "build": "node ./scripts/before-build.js && yarn companion-module-build && node ./scripts/copy-dist-bundle.js",
+        "build": "yarn add git+https://github.com/jonathan-annett/VirtualDesktop.git && yarn add git+https://github.com/jonathan-annett/virtual-desktop-node.git && node ./scripts/before-build.js && yarn companion-module-build && node ./scripts/copy-dist-bundle.js",
         "devbuild": "node ./scripts/before-build.js && yarn companion-module-build --dev && node ./scripts/copy-dist-bundle.js"
     },
     "license": "MIT",

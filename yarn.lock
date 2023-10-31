@@ -2166,14 +2166,14 @@ util-deprecate@~1.0.1:
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
 "virtual-desktop-node@git+https://github.com/jonathan-annett/virtual-desktop-node.git":
-  version "1.0.9"
-  resolved "git+https://github.com/jonathan-annett/virtual-desktop-node.git#6890e35d18a3501b4426ef43afd03f4a26fc91f7"
+  version "1.0.11"
+  resolved "git+https://github.com/jonathan-annett/virtual-desktop-node.git#87df9fb2950793c36f00e863355d5303f00f7466"
   dependencies:
     virtual-desktop "git+https://github.com/jonathan-annett/VirtualDesktop.git"
 
 "virtual-desktop@git+https://github.com/jonathan-annett/VirtualDesktop.git":
-  version "1.0.8"
-  resolved "git+https://github.com/jonathan-annett/VirtualDesktop.git#7f190a430bdfcbc9ca5f92b02dc83dec9b8f8834"
+  version "1.0.10"
+  resolved "git+https://github.com/jonathan-annett/VirtualDesktop.git#f757eb71efe4196f6ee514f6e257a4f138606ecd"
 
 watchpack@^2.4.0:
   version "2.4.0"
