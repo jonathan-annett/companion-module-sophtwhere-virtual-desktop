@@ -2172,8 +2172,8 @@ util-deprecate@~1.0.1:
     virtual-desktop "git+https://github.com/jonathan-annett/VirtualDesktop.git"
 
 "virtual-desktop@git+https://github.com/jonathan-annett/VirtualDesktop.git":
-  version "1.0.10"
-  resolved "git+https://github.com/jonathan-annett/VirtualDesktop.git#f757eb71efe4196f6ee514f6e257a4f138606ecd"
+  version "1.0.11"
+  resolved "git+https://github.com/jonathan-annett/VirtualDesktop.git#bcb398786b1dd070f25372eb33a664af1f74f300"
 
 watchpack@^2.4.0:
   version "2.4.0"
